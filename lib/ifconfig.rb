@@ -33,6 +33,10 @@
 # Licence::  GPL[http://www.gnu.org/copyleft/gpl.html]
 #
 
+current_dir=File.expand_path(File.dirname(__FILE__))
+unless $LOAD_PATH.first == (current_dir)
+  $LOAD_PATH.unshift(current_dir)
+end
 require 'ipaddr'
 
 class IfconfigWrapper
