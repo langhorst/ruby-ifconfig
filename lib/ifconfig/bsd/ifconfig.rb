@@ -30,7 +30,7 @@ class Ifconfig
         when /\s+media\:\s+Ethernet\s+/im
           @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface)
           parse_activity(iface_name)
-        when /\s+supported\smedia\:\s+none\s+autoselect\s+/im
+        when /\s+supported\smedia\:\s+none\s+autoselect\s+/im, /media\: autoselect/im
           # This clause is only matched on Darwin. This pattern will only be
           # matched on ethernet devices (won't match on fw0 or any other
           # interface I can see).
