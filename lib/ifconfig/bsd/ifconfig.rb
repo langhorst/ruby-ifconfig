@@ -53,7 +53,7 @@ class Ifconfig
       line.strip!
       if line =~ /^#{iface}/
         next if line.split[2] =~ /\<Link\#\d\>/
-        puts "matched line for "+iface
+        puts "matched line for "+iface if @verbose
         toks = line.split
         mtu = toks[1]
         rxpackets += toks[4].to_i

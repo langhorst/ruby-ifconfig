@@ -49,9 +49,11 @@ Gem::Specification.new do |s|
     test/unit/tc_netbsd.rb
     test/unit/tc_darwin.rb
     test/unit/tc_sunos.rb
+    test/unit/tc_osx.rb
     test/test_helper.rb
     test/test_netbsd.rb
     test/test_linux.rb
+    test/test_osx.rb
     ifconfig_examples/darwin.txt
     ifconfig_examples/dragonflybsd.txt
     ifconfig_examples/dragonflybsd_netstat.txt
@@ -62,6 +64,7 @@ Gem::Specification.new do |s|
     ifconfig_examples/freebsd.txt
     ifconfig_examples/openbsd.txt
     ifconfig_examples/sunos.txt
+    ifconfig_examples/osx.txt
   ]
  
 end
