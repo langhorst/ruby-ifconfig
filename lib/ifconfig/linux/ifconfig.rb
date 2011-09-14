@@ -14,7 +14,8 @@ class Ifconfig
     if input.nil?
       cmd = IO.popen('which ifconfig'){ |f| f.readlines[0] }
       raise RuntimeError.new("ifconfig not in PATH") unless !cmd.nil?
-      @ifconfig = IO.popen("/sbin/ifconfig -a"){ |f| f.readlines.join }
+      # force the language, ubuntu had the great idea to localize ifconfig
+      @ifconfig = IO.popen("export LANGUAGE=en_US:en;/sbin/ifconfig -a"){ |f| f.readlines.join }
     else
       @ifconfig = input
     end
