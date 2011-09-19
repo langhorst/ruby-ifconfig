@@ -2,11 +2,11 @@
  
 Gem::Specification.new do |s|
   s.name = %q{ruby-ifconfig}
-  s.version = "1.2.3"
-  s.date = %q{2008-12-09}
-  s.authors = ["Daniel Hobe", "Alex Peuchert"]
+  s.version = "1.2.4"
+  s.date = %q{2011-09-19}
+  s.authors = ["Daniel Hobe", "Alex Peuchert", "Ali Jelveh"]
   s.email = %q{daniel@nightrunner.com}
-  s.homepage = %q{http://github.com/aaalex/ruby-ifconfig}
+  s.homepage = %q{http://github.com/dudemeister/ruby-ifconfig}
   s.rubyforge_project = %q{ruby-ifconfig}
 
   s.description = %q{Ruby wrapper around the ifconfig command.}
