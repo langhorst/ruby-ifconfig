@@ -8,7 +8,7 @@ class TC_OpenBSDTest < Test::Unit::TestCase
   end
 
   def test_interface_list
-    assert(@cfg.interfaces == ["lo0", "lo1", "ep0", "xl0"],
+    assert(@cfg.interfaces.sort == ["lo0", "lo1", "ep0", "xl0"].sort,
            "Failed to parse all interfaces")
   end
 

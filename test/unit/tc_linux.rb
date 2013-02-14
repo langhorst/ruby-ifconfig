@@ -8,8 +8,8 @@ class TC_Linux < Test::Unit::TestCase
   end
 
   def test_interfaces
-    assert(@cfg.interfaces == ["sl0", "lo", "ppp0", "eth0",
-                                "eth0:0", "sit0", "sit1"],
+    assert(@cfg.interfaces.sort == ["sl0", "lo", "ppp0", "eth0",
+                                "eth0:0", "sit0", "sit1"].sort,
            "Not all interfaces parsed")
   end
 

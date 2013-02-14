@@ -8,7 +8,7 @@ class TC_NetBSDTest < Test::Unit::TestCase
   end
 
   def test_interface_list
-    assert(@cfg.interfaces == ["cs0", "lo0"],
+    assert(@cfg.interfaces.sort == ["cs0", "lo0"].sort,
            "Failed to parse all interfaces")
   end
 
