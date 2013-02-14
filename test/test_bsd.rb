@@ -1,12 +1,12 @@
 #!/usr/bin/ruby -w
 
-$: << File.dirname(__FILE__) + "/../lib"
+$:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 
 require 'ifconfig'
 require 'pp'
 
-ifcfg = IO.readlines('../ifconfig_examples/freebsd.txt').join
-netstat = IO.readlines('../ifconfig_examples/freebsd_netstat.txt').join
+ifcfg = IO.readlines(File.expand_path('../../ifconfig_examples/freebsd.txt', __FILE__)).join
+netstat = IO.readlines(File.expand_path('../../ifconfig_examples/freebsd_netstat.txt', __FILE__)).join
 
 ifconfig = IfconfigWrapper.new('BSD',ifcfg,netstat).parse
 

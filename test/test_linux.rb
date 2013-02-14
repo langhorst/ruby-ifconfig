@@ -1,12 +1,11 @@
 #!/usr/bin/ruby -w
 
-$: << File.dirname(__FILE__) + "/../lib"
-
+$:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 
 require 'ifconfig'
 require 'pp'
 
-sample = IO.readlines('../ifconfig_examples/linux.txt').join
+sample = IO.readlines(File.expand_path('../../ifconfig_examples/linux.txt', __FILE__)).join
 ifconfig = IfconfigWrapper.new('Linux',sample).parse
 
 puts "Interfaces: (ifconfig.interfaces)"

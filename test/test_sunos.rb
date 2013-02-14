@@ -1,6 +1,6 @@
 #!/usr/bin/ruby -w
 
-$: << File.dirname(__FILE__) + "/../lib"
+$:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 
 #
 #imaptest1# netstat -in
@@ -10,7 +10,7 @@ $: << File.dirname(__FILE__) + "/../lib"
 require 'ifconfig'
 require 'pp'
 
-sample = IO.readlines('../ifconfig_examples/sunos.txt').join
+sample = IO.readlines(File.expand_path('../../ifconfig_examples/sunos.txt', __FILE__)).join
 ifconfig = IfconfigWrapper.new('SunOS',sample).parse
 
 puts "Interfaces: (ifconfig.interfaces)"
