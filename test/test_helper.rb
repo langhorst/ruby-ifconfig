@@ -1,4 +1,4 @@
-$: << File.dirname(__FILE__)+'/../lib'
+$:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'ifconfig'
 require 'test/unit'
 require 'pp'
