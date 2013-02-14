@@ -6,6 +6,7 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
                           "/../../ifconfig_examples/dragonflybsd.txt").join
     @cfg = IfconfigWrapper.new('BSD',sample).parse
   end
+
   def test_interface_list
     assert(@cfg.interfaces == ["rl0", "lo0"],
            "Fauled to parse all interfaces")

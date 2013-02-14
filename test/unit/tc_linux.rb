@@ -7,7 +7,7 @@ class TC_Linux < Test::Unit::TestCase
     @cfg = IfconfigWrapper.new('Linux',sample).parse
   end
 
-  def test_intefaces
+  def test_interfaces
     assert(@cfg.interfaces == ["sl0", "lo", "ppp0", "eth0",
                                 "eth0:0", "sit0", "sit1"],
            "Not all interfaces parsed")

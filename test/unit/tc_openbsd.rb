@@ -6,6 +6,7 @@ class TC_OpenBSDTest < Test::Unit::TestCase
                           '/../../ifconfig_examples/openbsd.txt').join
     @cfg = IfconfigWrapper.new('BSD',sample).parse
   end
+
   def test_interface_list
     assert(@cfg.interfaces == ["lo0", "lo1", "ep0", "xl0"],
            "Failed to parse all interfaces")

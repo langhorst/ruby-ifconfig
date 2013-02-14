@@ -6,6 +6,7 @@ class TC_SunOSTest < Test::Unit::TestCase
                           '/../../ifconfig_examples/sunos.txt').join
     @@cfg = IfconfigWrapper.new('SunOS',sample).parse
   end
+
   def test_interface_list
     assert(@@cfg.interfaces == ["le1", "lo0", "bge0"],
            "Fauled to parse all interfaces")

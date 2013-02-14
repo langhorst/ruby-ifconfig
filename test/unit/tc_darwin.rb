@@ -8,7 +8,7 @@ class TC_DarwinTest < Test::Unit::TestCase
   end
 
   def test_interface_list
-    assert(@cfg.interfaces.sort == ["en0", "lo0"].sort,
+    assert(@cfg.interfaces.sort == ["en0", "fw0", "lo0"].sort,
            "Failed to parse all interfaces")
   end
 
