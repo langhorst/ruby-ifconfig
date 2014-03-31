@@ -10,7 +10,7 @@ class NetworkAdapter
   # iterate line by line and dispatch to helper functions
   # for lines that match a pattern
   #
-  def parse_ifconfig
+  def parse_ifconfig(netstattxt=nil)
     @ifconfig.split("\n").each { |line|
       case line
         when /^\s+#{@protos}/

@@ -1,7 +1,7 @@
 # $Id: interface_types.rb,v 1.1.1.1 2005/07/02 19:10:58 hobe Exp $
 #
 class NetworkAdapter
-  def initialize(name, ifacetxt)
+  def initialize(name, ifacetxt, netstattxt=nil)
     @name = name
     @ifconfig = ifacetxt
     @status = false
@@ -16,7 +16,7 @@ class NetworkAdapter
     @metric = nil
     @rx = @tx = {}
     @fib = 0
-    parse_ifconfig
+    parse_ifconfig(netstattxt)
   end
   attr_reader :status, :name, :fib, :flags, :mtu
   attr_accessor :tx, :rx
@@ -116,8 +116,8 @@ end
 # function to get the mac address
 #
 class EthernetAdapter < NetworkAdapter
-  def initialize(name,ifconfigtxt)
-    super(name,ifconfigtxt)
+  def initialize(name,ifconfigtxt,netstattxt=nil)
+    super(name,ifconfigtxt,netstattxt)
     @mac = set_mac
   end
 

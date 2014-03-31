@@ -4,7 +4,9 @@ class TC_NetBSDTest < Test::Unit::TestCase
   def setup
     sample = IO.readlines("#{File.dirname(__FILE__)}"+
                           '/../../ifconfig_examples/netbsd.txt').join
-    @cfg = IfconfigWrapper.new('BSD',sample).parse
+    netstat_sample = IO.readlines("#{File.dirname(__FILE__)}"+
+                                  "/../../ifconfig_examples/netbsd_netstat.txt").join
+    @cfg = IfconfigWrapper.new('BSD',sample, netstat_sample).parse
   end
 
   def test_interface_list

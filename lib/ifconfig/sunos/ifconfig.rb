@@ -8,7 +8,7 @@ class Ifconfig
   # Can manually specify the platform (should be output of the 'uname' command)
   # and the ifconfig input
   # 
-  def initialize(input=nil,verbose=nil)
+  def initialize(input=nil,netstat=nil,verbose=nil)
     if input.nil?
       cmd = IO.popen('which ifconfig'){ |f| f.readlines[0] }
       exit unless !cmd.nil?
@@ -27,9 +27,9 @@ class Ifconfig
       iface_name = get_iface_name(iface)
       case iface
         when /^lo\d\:/im
-          @ifaces[iface_name] = LoopbackInterface.new(iface_name,iface)
+          @ifaces[iface_name] = LoopbackInterface.new(iface_name,iface,netstat)
         when /\s+ether\s+/im
-          @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface)
+          @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface,netstat)
         else
           puts "Unknown Adapter Type: #{iface}" if @verbose
       end

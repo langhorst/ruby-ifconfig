@@ -4,7 +4,9 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
   def setup
     sample = IO.readlines("#{File.dirname(__FILE__)}"+
                           "/../../ifconfig_examples/dragonflybsd.txt").join
-    @cfg = IfconfigWrapper.new('BSD',sample).parse
+    netstat_sample = IO.readlines("#{File.dirname(__FILE__)}"+
+                          "/../../ifconfig_examples/dragonflybsd_netstat.txt").join
+    @cfg = IfconfigWrapper.new('BSD',sample, netstat_sample).parse
   end
 
   def test_interface_list
