@@ -2,9 +2,11 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class TC_FreeBSDTest < Test::Unit::TestCase
   def setup
-    sample = IO.readlines("#{File.dirname(__FILE__)}"+
-                          "/../../ifconfig_examples/freebsd.txt").join
-    @cfg = IfconfigWrapper.new('BSD',sample).parse
+    ifconfig_sample = IO.readlines("#{File.dirname(__FILE__)}"+
+                                   "/../../ifconfig_examples/freebsd.txt").join
+    netstat_sample = IO.readlines("#{File.dirname(__FILE__)}"+
+                                  "/../../ifconfig_examples/freebsd_netstat.txt").join
+    @cfg = IfconfigWrapper.new('BSD',ifconfig_sample, netstat_sample).parse
   end
 
   def test_interface_list
@@ -35,6 +37,12 @@ class TC_FreeBSDTest < Test::Unit::TestCase
     assert(@cfg['rl0'].rx['bytes'].class == Fixnum || NilClass &&
            @cfg['rl0'].tx['bytes'].class == Fixnum || NilClass, "Wrong class")
 
+  end
+
+  def test_mtu
+    assert_equal(1500, @cfg['xl0'].mtu)
+    assert_equal(1500, @cfg['rl0'].mtu)
+    assert_equal(16384, @cfg['lo0'].mtu)
   end
 
 end
