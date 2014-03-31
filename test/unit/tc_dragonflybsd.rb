@@ -9,7 +9,7 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
 
   def test_interface_list
     assert(@cfg.interfaces == ["rl0", "lo0"],
-           "Fauled to parse all interfaces")
+           "Failed to parse all interfaces")
   end
 
   def test_mac_parse

@@ -9,7 +9,7 @@ class TC_SunOSTest < Test::Unit::TestCase
 
   def test_interface_list
     assert(@@cfg.interfaces.sort == ["le1", "lo0", "bge0"].sort,
-           "Fauled to parse all interfaces")
+           "Failed to parse all interfaces")
   end
 
   def test_mac_parse
