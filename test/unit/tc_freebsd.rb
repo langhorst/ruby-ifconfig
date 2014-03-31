@@ -65,4 +65,13 @@ class TC_FreeBSDTest < Test::Unit::TestCase
     assert_equal(16384, @cfg['lo0'].mtu)
   end
 
+  def test_laggproto
+    assert_equal("lacp", @cfg['lagg0'].laggproto)
+  end
+
+  def test_lagg_children
+    assert_equal(['igb1', 'igb2', 'igb3'].sort,
+                 @cfg['lagg0'].lagg_children.sort)
+  end
+
 end

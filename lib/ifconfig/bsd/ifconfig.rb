@@ -31,6 +31,12 @@ class Ifconfig
         when /^lo\d\:/im
           @ifaces[iface_name] = LoopbackInterface.new(iface_name,iface)
           parse_activity(iface_name)
+        when /^lagg[0-9]:/
+          # This clause is only matched on FreeBSD.  Other OSes have similar
+          # drivers, for example agr(4) on NetBSD, but ruby-ifconfig does not
+          # yet support them.
+          @ifaces[iface_name] = LinkAggregation.new(iface_name,iface)
+          parse_activity(iface_name)
         when /\s+media\:\s+Ethernet\s+/im
           @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface)
           parse_activity(iface_name)

@@ -110,6 +110,8 @@ class NetworkAdapter
     s += " Metric: #{@metric}\n"
     s += " Flags: #{@flags.join(',')}\n"
     s += " Fib: #{@fib}\n" if @fib != 0
+    s += " Lagg Proto: #{@laggproto}\n" if @laggproto
+    s += " Lagg Children: #{@lagg_children}\n" if @lagg_children
     s += " Status: UP" if self.status
     return s
   end
@@ -143,4 +145,16 @@ class IPv6_in_IPv4 < NetworkAdapter
 end
 
 class SerialLineIP < NetworkAdapter
+end
+
+# Represents combinations of network interfaces.  Variously known as lagg,
+# bond, teaming, trunking, etc.
+class LinkAggregation < EthernetAdapter
+  attr_reader :lagg_children, :laggproto
+
+  def initialize(name,ifconfigtxt,netstattxt=nil)
+    @lagg_children = []
+    @laggproto = nil
+    super(name,ifconfigtxt,netstattxt)
+  end
 end

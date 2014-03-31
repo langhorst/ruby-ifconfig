@@ -84,3 +84,22 @@ class EthernetAdapter
     end
   end
 end
+
+
+class LinkAggregation
+  def parse_ifconfig(netstattxt=nil)
+    super(netstattxt)
+    @ifconfig.split("\n").each { |line|
+      proto_match = line.match( /^\s*laggproto\s*(\S+)\s*/ )
+      if proto_match
+        @laggproto = proto_match[1]
+        next
+      end
+      port_match = line.match( /^\s*laggport:\s*(\S+)\s*/ )
+      if port_match
+        @lagg_children << port_match[1]
+        next
+      end
+    }
+  end
+end
