@@ -17,8 +17,15 @@ class NetworkAdapter
           add_network(line)
         when /flags\=/i
           parse_flags(line)
+        when /\s*fib:/
+          parse_fib(line)
       end
     }
+  end
+
+  # parses the "fib: 1" line
+  def parse_fib(line)
+    @fib = line.split()[1].to_i
   end
 
   # parses the "UP LOOPBACK RUNNING  MTU:3924  Metric:1" line

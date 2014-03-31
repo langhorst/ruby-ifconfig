@@ -43,6 +43,12 @@ class TC_FreeBSDTest < Test::Unit::TestCase
     assert_equal(0, @cfg['igb0'].tx['errors'])
   end
 
+  def test_fib
+    assert_equal(0, @cfg['lo0'].fib)
+    assert_equal(0, @cfg['igb0'].fib)
+    assert_equal(1, @cfg['lagg0'].fib)
+  end
+
   def test_mtu
     assert_equal(1500, @cfg['igb0'].mtu)
     assert_equal(1500, @cfg['lagg0'].mtu)

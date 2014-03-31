@@ -15,9 +15,10 @@ class NetworkAdapter
     @mtu = nil
     @metric = nil
     @rx = @tx = {}
+    @fib = 0
     parse_ifconfig
   end
-  attr_reader :status, :name, :flags, :mtu
+  attr_reader :status, :name, :fib, :flags, :mtu
   attr_accessor :tx, :rx
 
   # take array and turn each two entries into
@@ -105,6 +106,7 @@ class NetworkAdapter
     s += " MTU: #{@mtu}\n"
     s += " Metric: #{@metric}\n"
     s += " Flags: #{@flags.join(',')}\n"
+    s += " Fib: #{@fib}\n" if @fib != 0
     s += " Status: UP" if self.status
     return s
   end
