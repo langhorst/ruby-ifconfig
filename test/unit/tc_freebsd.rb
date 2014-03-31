@@ -36,7 +36,10 @@ class TC_FreeBSDTest < Test::Unit::TestCase
   def test_attribs
     assert(@cfg['rl0'].rx['bytes'].class == Fixnum || NilClass &&
            @cfg['rl0'].tx['bytes'].class == Fixnum || NilClass, "Wrong class")
-
+    assert_equal(7865045, @cfg['xl0'].rx['packets'])
+    assert_equal(0, @cfg['xl0'].rx['errors'])
+    assert_equal(5496244, @cfg['xl0'].tx['packets'])
+    assert_equal(0, @cfg['xl0'].tx['errors'])
   end
 
   def test_mtu
