@@ -8,7 +8,7 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
   end
 
   def test_interface_list
-    assert(@cfg.interfaces == ["rl0", "lo0"],
+    assert(@cfg.interfaces.sort == ["rl0", "lo0"].sort,
            "Failed to parse all interfaces")
   end
 
