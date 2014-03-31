@@ -92,6 +92,9 @@ class NetworkAdapter
     return self.addresses.include?(addr)
   end
 
+  def parse_media
+  end
+
   def to_s
     s = @name+":"+self.ifacetype.to_s+"\n"
     @networks.keys.sort.each { |network|
@@ -121,7 +124,7 @@ class EthernetAdapter < NetworkAdapter
     @mac = set_mac
   end
 
-  attr_reader :mac, :interrupt, :rxbytes, :txbytes, :rxpackets,
+  attr_reader :mac, :media, :interrupt, :rxbytes, :txbytes, :rxpackets,
               :txpackets
 
   def to_s

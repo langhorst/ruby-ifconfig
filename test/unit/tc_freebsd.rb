@@ -11,7 +11,7 @@ class TC_FreeBSDTest < Test::Unit::TestCase
 
   def test_interface_list
     assert(@cfg.interfaces.sort == ["igb0", "igb1", "igb2", "igb3",
-                                    "lo0", "lagg0"].sort,
+                                    "cxgbe0", "lo0", "lagg0"].sort,
            "Failed to parse all interfaces")
   end
 
@@ -47,6 +47,16 @@ class TC_FreeBSDTest < Test::Unit::TestCase
     assert_equal(0, @cfg['lo0'].fib)
     assert_equal(0, @cfg['igb0'].fib)
     assert_equal(1, @cfg['lagg0'].fib)
+    assert_equal(0, @cfg['cxgbe0'].fib)
+  end
+
+  def test_media
+    assert_equal("1000baseT", @cfg['igb0'].media)
+    assert_equal("1000baseT", @cfg['igb0'].media)
+    assert_equal("1000baseT", @cfg['igb0'].media)
+    assert_equal("1000baseT", @cfg['igb0'].media)
+    assert_equal("10Gbase-Twinax", @cfg['cxgbe0'].media)
+    assert_equal(nil, @cfg['lagg0'].media)
   end
 
   def test_mtu

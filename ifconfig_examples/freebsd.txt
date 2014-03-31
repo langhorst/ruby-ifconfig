@@ -25,6 +25,13 @@ igb3: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
 	nd6 options=29<PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL>
 	media: Ethernet autoselect (1000baseT <full-duplex>)
 	status: active
+cxgbe0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+        options=6c07bb<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,JUMBO_MTU,VLAN_HWCSUM,TSO4,TSO6,LRO,VLAN_HWTSO,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6>
+        ether 22:33:44:55:66:77
+        inet 10.1.0.11 netmask 0xfffff000 broadcast 10.1.15.255
+        nd6 options=29<PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL>
+        media: Ethernet 10Gbase-Twinax <full-duplex>
+        status: active
 lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
 	options=600003<RXCSUM,TXCSUM,RXCSUM_IPV6,TXCSUM_IPV6>
 	inet6 ::1 prefixlen 128 

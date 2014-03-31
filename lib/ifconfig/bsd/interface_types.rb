@@ -19,6 +19,8 @@ class NetworkAdapter
           parse_flags(line)
         when /\s*fib:/
           parse_fib(line)
+        when /\s*media:/
+          parse_media(line)
       end
     }
   end
@@ -62,6 +64,14 @@ end
 
 
 class EthernetAdapter
+  # Parses the "media: Ethernet autoselect (1000baseT <full-duplex>)" line
+  def parse_media(line)
+    match = line.match /Ethernet (autoselect )?(\()?(\S+?)[ )]/
+    if match
+      @media = match[3]
+    end
+  end
+
   def set_mac
     begin
       match=@ifconfig.match(/\s+ether\s+([a-f\d]{1,2}(?:\:[a-f\d]{1,2}){5})/im)
