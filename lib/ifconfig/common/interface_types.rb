@@ -18,7 +18,7 @@ class NetworkAdapter
     @fib = 0
     parse_ifconfig(netstattxt)
   end
-  attr_reader :status, :name, :fib, :flags, :mtu
+  attr_reader :status, :name, :fib, :flags, :mtu, :lagg_children, :laggproto
   attr_accessor :tx, :rx
 
   # take array and turn each two entries into
@@ -107,6 +107,7 @@ class NetworkAdapter
     end
 
     s += " MTU: #{@mtu}\n"
+    s += " Media: #{@media}\n"
     s += " Metric: #{@metric}\n"
     s += " Flags: #{@flags.join(',')}\n"
     s += " Fib: #{@fib}\n" if @fib != 0
@@ -150,8 +151,6 @@ end
 # Represents combinations of network interfaces.  Variously known as lagg,
 # bond, teaming, trunking, etc.
 class LinkAggregation < EthernetAdapter
-  attr_reader :lagg_children, :laggproto
-
   def initialize(name,ifconfigtxt,netstattxt=nil)
     @lagg_children = []
     @laggproto = nil
