@@ -57,8 +57,8 @@ class NetworkAdapter
   def add_network(line)
     case line
       when /^\s+inet\s/
-        addr,mask = line.match(/\s+([\d\d?\d?\.]{4,})\s+netmask\s+(\S+)/i)[1..2]
-        bcast = line.match(/\s+broadcast\s([\d\d?\d?\.]{4,})/i)
+        addr,mask = line.match(/\s+((\d{1,3}\.){3,}\d{1,3})\s+netmask\s+(\S+)/i)[1..2]
+        bcast = line.match(/\s+broadcast\s([{1,3}d?\.]{4,})/i)
         bcast = bcast[1] unless bcast.nil?
         @networks['inet'] = Ipv4Network.new(addr, mask, bcast)
       when /^\s+inet6\s/
@@ -79,7 +79,7 @@ end
 class EthernetAdapter
   # Parses the "media: Ethernet autoselect (1000baseT <full-duplex>)" line
   def parse_media(line)
-    match = line.match /Ethernet (autoselect )?(\()?(\S+?)[ )]/
+    match = line.match(/Ethernet (autoselect )?(\()?(\S+?)[ )]/)
     if match
       @media = match[3]
     end
@@ -101,6 +101,9 @@ end
 
 class LinkAggregation
   def parse_ifconfig(netstattxt=nil)
+    if @lagg_children.nil?
+      @lagg_children = []
+    end
     super(netstattxt)
     @ifconfig.split("\n").each { |line|
       proto_match = line.match( /^\s*laggproto\s*(\S+)\s*/ )

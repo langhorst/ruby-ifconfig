@@ -12,6 +12,9 @@ class NetworkAdapter
                'EtherTalk Phase 2'].join("|")
     @networks = {}
     @flags = []
+    @media = nil
+    @laggproto = nil
+    @lagg_children = nil
     @capabilities = []
     @mtu = nil
     @metric = nil
