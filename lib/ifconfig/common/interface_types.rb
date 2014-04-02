@@ -12,6 +12,7 @@ class NetworkAdapter
                'EtherTalk Phase 2'].join("|")
     @networks = {}
     @flags = []
+    @capabilities = []
     @mtu = nil
     @metric = nil
     @rx = @tx = {}
@@ -19,6 +20,7 @@ class NetworkAdapter
     parse_ifconfig(netstattxt)
   end
   attr_reader :status, :name, :fib, :flags, :mtu, :lagg_children, :laggproto
+  attr_reader :capabilities
   attr_accessor :tx, :rx
 
   # take array and turn each two entries into
@@ -106,6 +108,7 @@ class NetworkAdapter
       s += " RX packets: #{self.rx['packets']}, TX packets: #{self.tx['packets']}\n"
     end
 
+    s += " Capabilities: #{@capabilities.join(',')}\n"
     s += " MTU: #{@mtu}\n"
     s += " Media: #{@media}\n"
     s += " Metric: #{@metric}\n"

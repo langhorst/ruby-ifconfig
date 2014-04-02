@@ -39,4 +39,9 @@ class TC_NetBSDTest < Test::Unit::TestCase
 
   end
 
+  def test_capabilities
+    expected = %w(UDP4CSUM_Rx UDP4CSUM_Tx)
+    assert_equal(expected.sort, @cfg['cs0'].capabilities.sort)
+  end
+
 end

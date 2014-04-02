@@ -39,4 +39,9 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
 
   end
 
+  def test_capabilities
+    expected = %w(RXCSUM TXCSUM VLAN_MTU VLAN_HWTAGGING)
+    assert_equal(expected.sort, @cfg['rl0'].capabilities.sort)
+  end
+
 end

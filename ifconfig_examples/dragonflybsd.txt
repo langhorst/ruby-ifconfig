@@ -1,4 +1,5 @@
 rl0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=1b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING>
 	inet6 fe80::202:44ff:fe8f:bb15%rl0 prefixlen 64 scopeid 0x2 
 	inet 192.168.1.24 netmask 0xffffff00 broadcast 192.168.1.255
 	ether 00:02:44:8f:bb:15

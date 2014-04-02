@@ -15,12 +15,18 @@ class NetworkAdapter
       case line
         when /^\s+#{@protos}/
           add_network(line)
-        when /flags\=/i
+        when /\s*flags\=/i
           parse_flags(line)
-        when /\s*fib:/
+        when /^\s*fib:/
           parse_fib(line)
-        when /\s*media:/
+        when /^\s*media:/
           parse_media(line)
+        when /^\s*options=/
+          # FreeBSD and DragonFlyBSD use "options="
+          parse_capabilities(line)
+        when /^\s*enabled=/
+          # NetBSD uses "enabled="
+          parse_capabilities(line)
       end
     }
   end
@@ -28,6 +34,13 @@ class NetworkAdapter
   # parses the "fib: 1" line
   def parse_fib(line)
     @fib = line.split()[1].to_i
+  end
+
+  # parses the "options=1b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING>" line
+  #
+  def parse_capabilities(line)
+    caps = line.match(/\<(\S+)\>/i)[1]
+    @capabilities = caps.strip.split(',')
   end
 
   # parses the "UP LOOPBACK RUNNING  MTU:3924  Metric:1" line
@@ -76,7 +89,7 @@ class EthernetAdapter
     begin
       match=@ifconfig.match(/\s+ether\s+([a-f\d]{1,2}(?:\:[a-f\d]{1,2}){5})/im)
       return match[1] unless match.nil?
-      # Openbsd
+      # OpenBSD and NetBSD
       match = @ifconfig.match(/\s+address\:\s+([a-f\d]{1,2}(?:\:[a-f\d]{1,2}){5})/im)
       return match[1] unless match.nil?
     rescue NoMethodError

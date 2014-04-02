@@ -74,4 +74,10 @@ class TC_FreeBSDTest < Test::Unit::TestCase
                  @cfg['lagg0'].lagg_children.sort)
   end
 
+  def test_capabilities
+    expected = %w(RXCSUM TXCSUM VLAN_MTU VLAN_HWTAGGING JUMBO_MTU VLAN_HWCSUM
+                  TSO4 VLAN_HWTSO)
+    assert_equal(expected.sort, @cfg['igb0'].capabilities.sort)
+  end
+
 end
