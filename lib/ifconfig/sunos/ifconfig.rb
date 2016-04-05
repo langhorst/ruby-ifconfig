@@ -32,7 +32,7 @@ class Ifconfig
           @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface,netstat)
         else
           # fallback for virtual nics like bge:0
-          @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface,netstat)
+          @ifaces[iface_name] = NetworkAdapter.new(iface_name,iface,netstat)
       end
     end
   end
