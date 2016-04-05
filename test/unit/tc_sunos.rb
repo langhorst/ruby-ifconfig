@@ -10,12 +10,12 @@ class TC_SunOSTest < Test::Unit::TestCase
   end
 
   def test_interface_list
-    assert(@cfg.interfaces.sort == ["le1", "lo0", "bge0"].sort,
+    assert(@cfg.interfaces.sort == ["le1", "lo0", "bge0", "bge0:1"].sort,
            "Failed to parse all interfaces")
   end
 
   def test_mac_parse
-    assert(@cfg['bge0'].mac == "0:3:ba:42:9d:ef", 
+    assert(@cfg['bge0'].mac == "0:3:ba:42:9d:ef",
     "Failed to parse MAC address: "+@cfg['bge0'].mac)
   end
 
@@ -23,6 +23,7 @@ class TC_SunOSTest < Test::Unit::TestCase
     assert(@cfg['bge0'].flags.include?('BROADCAST') &&
           @cfg['bge0'].flags.include?('RUNNING') &&
           @cfg['bge0'].flags.include?('MULTICAST') &&
+          @cfg['bge0'].flags.include?('ROUTER') &&
           @cfg['bge0'].up?,
            "FLAG Parsing failed: #{@cfg['bge0'].flags}")
   end
@@ -40,7 +41,7 @@ class TC_SunOSTest < Test::Unit::TestCase
   end
 
   def test_attribs
-    assert(@cfg['bge0'].rx['bytes'].class == Fixnum || NilClass&&
+    assert(@cfg['bge0'].rx['bytes'].class == Fixnum || NilClass &&
            @cfg['bge0'].tx['bytes'].class == Fixnum || NilClass, "Wrong class")
   end
 
