@@ -36,11 +36,8 @@ Gem::Specification.new do |s|
   ]
 
   s.test_files = %w[
-    test/test_dragonflybsd.rb
-    test/test_openbsd.rb
-    test/test_darwin.rb
-    test/test_bsd.rb
-    test/test_sunos.rb
+    test/selftest.rb
+    test/test_helper.rb
     test/unit/tc_openbsd.rb
     test/unit/tc_dragonflybsd.rb
     test/unit/tc_linux.rb
@@ -49,10 +46,6 @@ Gem::Specification.new do |s|
     test/unit/tc_darwin.rb
     test/unit/tc_sunos.rb
     test/unit/tc_osx.rb
-    test/test_helper.rb
-    test/test_netbsd.rb
-    test/test_linux.rb
-    test/test_osx.rb
     ifconfig_examples/darwin.txt
     ifconfig_examples/dragonflybsd.txt
     ifconfig_examples/dragonflybsd_netstat.txt
