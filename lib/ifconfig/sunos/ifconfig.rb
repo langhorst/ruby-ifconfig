@@ -31,7 +31,8 @@ class Ifconfig
         when /\s+ether\s+/im
           @ifaces[iface_name] = EthernetAdapter.new(iface_name,iface,netstat)
         else
-          puts "Unknown Adapter Type: #{iface}" if @verbose
+          # fallback for virtual nics like bge:0
+          @ifaces[iface_name] = NetworkAdapter.new(iface_name,iface,netstat)
       end
     end
   end
