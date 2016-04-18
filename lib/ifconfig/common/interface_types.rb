@@ -1,7 +1,7 @@
 # $Id: interface_types.rb,v 1.1.1.1 2005/07/02 19:10:58 hobe Exp $
 #
 class NetworkAdapter
-  def initialize(name, ifacetxt)
+  def initialize(name, ifacetxt, netstattxt=nil)
     @name = name
     @ifconfig = ifacetxt
     @status = false
@@ -12,12 +12,18 @@ class NetworkAdapter
                'EtherTalk Phase 2'].join("|")
     @networks = {}
     @flags = []
+    @media = nil
+    @laggproto = nil
+    @lagg_children = nil
+    @capabilities = []
     @mtu = nil
     @metric = nil
     @rx = @tx = {}
-    parse_ifconfig
+    @fib = 0
+    parse_ifconfig(netstattxt)
   end
-  attr_reader :status, :name, :flags, :mtu
+  attr_reader :status, :name, :fib, :flags, :mtu, :lagg_children, :laggproto
+  attr_reader :capabilities
   attr_accessor :tx, :rx
 
   # take array and turn each two entries into
@@ -91,6 +97,9 @@ class NetworkAdapter
     return self.addresses.include?(addr)
   end
 
+  def parse_media
+  end
+
   def to_s
     s = @name+":"+self.ifacetype.to_s+"\n"
     @networks.keys.sort.each { |network|
@@ -102,9 +111,14 @@ class NetworkAdapter
       s += " RX packets: #{self.rx['packets']}, TX packets: #{self.tx['packets']}\n"
     end
 
+    s += " Capabilities: #{@capabilities.join(',')}\n"
     s += " MTU: #{@mtu}\n"
+    s += " Media: #{@media}\n"
     s += " Metric: #{@metric}\n"
     s += " Flags: #{@flags.join(',')}\n"
+    s += " Fib: #{@fib}\n" if @fib != 0
+    s += " Lagg Proto: #{@laggproto}\n" if @laggproto
+    s += " Lagg Children: #{@lagg_children}\n" if @lagg_children
     s += " Status: UP" if self.status
     return s
   end
@@ -114,12 +128,12 @@ end
 # function to get the mac address
 #
 class EthernetAdapter < NetworkAdapter
-  def initialize(name,ifconfigtxt)
-    super(name,ifconfigtxt)
+  def initialize(name,ifconfigtxt,netstattxt=nil)
+    super(name,ifconfigtxt,netstattxt)
     @mac = set_mac
   end
 
-  attr_reader :mac, :interrupt, :rxbytes, :txbytes, :rxpackets,
+  attr_reader :mac, :media, :interrupt, :rxbytes, :txbytes, :rxpackets,
               :txpackets
 
   def to_s
@@ -138,4 +152,14 @@ class IPv6_in_IPv4 < NetworkAdapter
 end
 
 class SerialLineIP < NetworkAdapter
+end
+
+# Represents combinations of network interfaces.  Variously known as lagg,
+# bond, teaming, trunking, etc.
+class LinkAggregation < EthernetAdapter
+  def initialize(name,ifconfigtxt,netstattxt=nil)
+    @lagg_children = []
+    @laggproto = nil
+    super(name,ifconfigtxt,netstattxt)
+  end
 end

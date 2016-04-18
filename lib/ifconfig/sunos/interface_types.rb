@@ -7,23 +7,26 @@ require 'ifconfig/common/interface_types'
 class NetworkAdapter
   # Parse activity on interface
   # 
-  def parse_activity
+  def parse_activity(netstattxt)
     #imaptest1# netstat -in
     #Name  Mtu  Net/Dest      Address        Ipkts  Ierrs Opkts  Oerrs Collis Queue 
     #lo0   8232 0.0.0.0       0.0.0.4        267824 0     267824 0     0      0     
     #bge0  1500 10.0.0.0      10.32.4.138    10935939 0     7741167 0     0      0 
-    cmd = "netstat -in | grep #{@name}"
-    line = IO.popen(cmd).gets
-    return if line.nil?
-    name,@mtu,dfgw,addr,@rx['packets'],@rx['errors'],
-    @tx['packets'],@tx['errors'],collisions,queue = line.split
-    @mtu = @mtu.to_i
+    cmd = "netstat -in"
+    txt = netstattxt || IO.popen(cmd)
+    txt.each_line do |line|
+      next if line.nil?
+      next unless line =~ /#{@name}/
+      name,@mtu,dfgw,addr,@rx['packets'],@rx['errors'],
+      @tx['packets'],@tx['errors'],collisions,queue = line.split
+      @mtu = @mtu.to_i
+    end
   end
  
   # iterate line by line and dispatch to helper functions
   # for lines that match a pattern
   # 
-  def parse_ifconfig
+  def parse_ifconfig(netstattxt=nil)
     @ifconfig.split("\n").each { |line|
       case line
         when /^\s+#{@protos}/
@@ -32,7 +35,7 @@ class NetworkAdapter
           parse_flags(line)
       end
     }
-    parse_activity
+    parse_activity(netstattxt)
   end
   
   # parses the "UP LOOPBACK RUNNING  MTU:3924  Metric:1" line

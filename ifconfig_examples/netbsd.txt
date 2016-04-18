@@ -1,4 +1,6 @@
 cs0: flags=8863<UP,BROADCAST,NOTRAILERS,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+        capabilities=2bf80<TSO4,IP4CSUM_Rx,IP4CSUM_Tx,TCP4CSUM_Rx,TCP4CSUM_Tx,UDP4CSUM_Rx,UDP4CSUM_Tx,TCP6CSUM_Tx,UDP6CSUM_Tx>
+        enabled=3000<UDP4CSUM_Rx,UDP4CSUM_Tx>
         address: 08:00:2b:81:62:ca
         media: Ethernet 10baseT
         status: active

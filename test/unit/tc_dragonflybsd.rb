@@ -4,12 +4,14 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
   def setup
     sample = IO.readlines("#{File.dirname(__FILE__)}"+
                           "/../../ifconfig_examples/dragonflybsd.txt").join
-    @cfg = IfconfigWrapper.new('BSD',sample).parse
+    netstat_sample = IO.readlines("#{File.dirname(__FILE__)}"+
+                          "/../../ifconfig_examples/dragonflybsd_netstat.txt").join
+    @cfg = IfconfigWrapper.new('BSD',sample, netstat_sample).parse
   end
 
   def test_interface_list
-    assert(@cfg.interfaces == ["rl0", "lo0"],
-           "Fauled to parse all interfaces")
+    assert(@cfg.interfaces.sort == ["rl0", "lo0"].sort,
+           "Failed to parse all interfaces")
   end
 
   def test_mac_parse
@@ -35,6 +37,11 @@ class TC_DragonFlyBSDTest < Test::Unit::TestCase
     assert(@cfg['rl0'].rx['bytes'].class == Fixnum || NilClass &&
            @cfg['rl0'].tx['bytes'].class == Fixnum || NilClass, "Wrong class")
 
+  end
+
+  def test_capabilities
+    expected = %w(RXCSUM TXCSUM VLAN_MTU VLAN_HWTAGGING)
+    assert_equal(expected.sort, @cfg['rl0'].capabilities.sort)
   end
 
 end

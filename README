@@ -2,10 +2,11 @@
 This is a Ruby wrapper around the ifconfig command.  The goal is to make
 getting any information that ifconfig provides easy to access.
 
-It was developed on Linux 2.6 with ifconfig from net-tools 1.60.  It also has
-support for SunOS, Darwin and Open, Free, Net, and DragonflyBSD.  These have
-not been thoroughly tested.  Non Linux platforms call netstat for interface
-packet information
+It was developed on Linux 2.6 with ifconfig from net-tools 1.60.  The FreeBSD
+support has been tested on FreBSD 9.2 amd64.  The package also has support for
+SunOS, Darwin, OSX and Open, Net, and DragonflyBSD.  These have not been
+thoroughly tested.  Non Linux platforms call netstat for interface packet
+information.
 
 Please send me ifconfig / netstat output for platforms that don't work.
 
@@ -29,7 +30,7 @@ Prerequisites
 
 You must have a working ifconfig binary in your path.
 The output format of you particular version of ifconfig must be supported.
-Currently this has only been tested with net-tool 1.6 on Linux
+Currently this has only been tested with FreeBSD 9.2 and net-tool 1.6 on Linux.
 
 Example
 ------

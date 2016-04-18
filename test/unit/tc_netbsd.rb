@@ -4,7 +4,9 @@ class TC_NetBSDTest < Test::Unit::TestCase
   def setup
     sample = IO.readlines("#{File.dirname(__FILE__)}"+
                           '/../../ifconfig_examples/netbsd.txt').join
-    @cfg = IfconfigWrapper.new('BSD',sample).parse
+    netstat_sample = IO.readlines("#{File.dirname(__FILE__)}"+
+                                  "/../../ifconfig_examples/netbsd_netstat.txt").join
+    @cfg = IfconfigWrapper.new('BSD',sample, netstat_sample).parse
   end
 
   def test_interface_list
@@ -35,6 +37,11 @@ class TC_NetBSDTest < Test::Unit::TestCase
     assert(@cfg['cs0'].rx['bytes'].class == Fixnum || NilClass &&
            @cfg['cs0'].tx['bytes'].class == Fixnum || NilClass, "Wrong class")
 
+  end
+
+  def test_capabilities
+    expected = %w(UDP4CSUM_Rx UDP4CSUM_Tx)
+    assert_equal(expected.sort, @cfg['cs0'].capabilities.sort)
   end
 
 end
